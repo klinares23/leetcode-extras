@@ -1,0 +1,35 @@
+#include <vector>
+#include <string>
+#include <stack>
+
+using namespace std;
+
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<long long> s;
+
+        for (const string& token : tokens) {
+            if (token == "+") {
+                long long val1 = s.top(); s.pop();
+                long long val2 = s.top(); s.pop();
+                s.push(val2 + val1);
+            } else if (token == "-") {
+                long long val1 = s.top(); s.pop();
+                long long val2 = s.top(); s.pop();
+                s.push(val2 - val1);
+            } else if (token == "*") {
+                long long val1 = s.top(); s.pop();
+                long long val2 = s.top(); s.pop();
+                s.push(val2 * val1);
+            } else if (token == "/") {
+                long long val1 = s.top(); s.pop();
+                long long val2 = s.top(); s.pop();
+                s.push(val2 / val1);
+            } else {
+                s.push(stoll(token));
+            }
+        }
+        return (int)s.top();
+    }
+};
